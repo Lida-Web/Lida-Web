@@ -1,0 +1,79 @@
+{
+  "id": "1924320",
+  "name": "03",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7565024",
+      "name": "眼睛",
+      "font_class": "yanjing",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "14027001",
+      "name": "眼睛",
+      "font_class": "yanjing1",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "1801400",
+      "name": "上传",
+      "font_class": "svgs_shangchuan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "5597821",
+      "name": "新建文件夹 icon",
+      "font_class": "xinjianwenjianjiaicon",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "12773242",
+      "name": "下载",
+      "font_class": "xiazai",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "4622198",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "10424455",
+      "name": "Set up on",
+      "font_class": "Setupon",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    },
+    {
+      "icon_id": "7722647",
+      "name": "闪电",
+      "font_class": "shandian",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "839438",
+      "name": "用户密码",
+      "font_class": "mima",
+      "unicode": "e893",
+      "unicode_decimal": 59539
+    },
+    {
+      "icon_id": "9594603",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

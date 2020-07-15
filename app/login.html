@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>酷猫云盘管理系统</title>
+    <link rel="stylesheet" href="font/iconfont.css">
+    <style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			display: flex;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+            /* overflow: hidden; */
+		}
+        
+        body {
+            perspective: 800px;
+            background-color: hotpink;
+        }
+        /* 公共类 */
+        ul{
+            list-style: none;
+        }
+
+        /* .lihover{
+            color:#E6AD3E;
+            border: 4px solid #E6AD3E;
+        } */
+        /* 主页面 */
+		.mainym{
+            width: 100%;
+            height: 100%;
+            /* background-color: greenyellow; */
+			display: flex;
+            flex-flow: column nowrap;
+        }
+        /* 导航条 */
+        .mainym .nav{
+            width: 100%;
+			height: 50px;
+			box-sizing: border-box;
+			/* background-color: #2C313C; */
+            background-color: #282C34;
+            line-height: 50px;
+			display: flex;
+            flex-grow: 0;
+            flex-shrink: 0;
+            overflow:hidden;
+        }
+        .nav .logo{
+            width: 200px;
+			text-align: center;
+            padding-left: 55px;
+            background: url('imgs/ttx.png') 12px center no-repeat;
+            background-size: 40px;
+            color:#E6AD3E;
+            overflow: hidden;
+            flex-grow: 0;
+            flex-shrink: 1;
+        }
+        .nav .liebiao{
+			display: flex;
+			width: 100%;
+			background-color: #282C34;
+            flex-flow: row nowrap;
+			justify-content:flex-start;
+			align-items:center;
+            color:#A4A4A6;
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow: hidden;
+        }
+		.nav .liebiao .liebiao-li{
+			width: 120px;
+            height: 54px;
+			text-align: center;
+            position: relative;
+            top:-2px;
+            box-sizing: border-box;
+            border: 4px solid rgba(0,0,0,0);
+            transition: 0.3s;
+		}
+        .nav .liebiao .liebiao-li:nth-child(1){
+            border-bottom-color:#E6AD3E;
+            color:#E6AD3E;
+        }
+        
+            .nav .liebiao .liebiao-li:hover{
+                color:#E6AD3E;
+                /* border-bottom-color: #E6AD3E; */
+            }
+            
+            .nav .liebiao .liebiao-li:hover ul{
+                display: block;
+            }
+		/* .nav .liebiao .liebiao-li span{
+			display: inline-block;
+			border: 7px solid transparent;
+			border-top-color: #A4A4A6;
+			border-bottom: none;
+			margin-left: 5px;
+		} */
+
+        .nav .liebiao .liebiao-li ul{
+            background-color: #2C313C;
+            display: none;
+        }
+
+        .nav .liebiao .liebiao-li ul li{
+            border-bottom: 2px solid rgba(61,67,81,1);
+        }
+        .nav .liebiao .liebiao-li ul li:hover{
+            background-color: #3D4351;
+        }
+
+        .center{
+            width: 100%;
+            height: 100%;
+			box-sizing: border-box;
+            flex-grow: 1;
+            /* display: flex; */
+            /* flex-flow: row nowrap; */
+            background-color: #303540;
+            position: relative;
+            color:#7F848E;
+            flex-shrink: 1;
+            overflow: hidden;
+        }
+        .center .accountym,
+        .center .fileym,
+        .center .systemSettingsym{
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-flow: row nowrap;
+            position: absolute;
+            left:0;
+            top:0;
+            
+        }
+        .center .sidebar{
+            background-color: #2C313C;
+            width: 225px;
+            flex-grow: 0;
+            flex-shrink: 1;
+        }
+        .sidebar p{
+            color:#E6AD3E;
+            line-height: 50px;
+            text-align: center;
+            background-color: rgba(137,111,61,0.1);
+            border-left: 3px solid #E6AD3E;
+        }
+        .sidebar p i{
+            margin-right: 5px;
+        }
+        .center .content{
+            background-color: rgba(65,69,79,0.2);
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 1;
+        }
+        .center .accountym {
+            display: flex;
+        }
+        /* .center .fileym {
+            display: flex;
+        } */
+        /* .center .systemSettingsym {
+            display: flex;
+        } */
+
+        .center .accountym .acc-innser1,
+        .center .accountym .acc-innser2,
+        .center .systemSettingsym .sys-innser{
+            padding: 30px;
+        }
+
+        .center .accountym .acc-innser1{
+            padding: 30px;
+            /* display: none; */
+        }
+
+        .center .accountym .sidebar img{
+            margin-top: 10px;
+            width: 220px;
+        }
+        .center .accountym .acc-innser2{
+            display: none;
+            text-align: center;
+        }
+        .center .accountym .acc-innser2 input,
+        .center .accountym .acc-innser2 select{
+            width: 180px;
+            height: 30px;
+            border:none;
+            border-radius: 3px;
+            background-color: #7C8792;
+            padding-left: 10px;
+        }
+
+        .center .accountym .acc-innser2 .inn2btn{
+            margin-top: 30px;
+            width: 150px;
+            height: 35px;
+            line-height: 30px;
+            font-size: 16px;
+        }
+        
+
+        .center .fileym .sidebar ul,
+        .center .systemSettingsym .sidebar ul{
+            line-height: 45px;
+        }
+       
+        .center .fileym .sidebar ul li,
+        .center .systemSettingsym .sidebar ul li{
+            text-align: center;
+            border-left: 3px solid rgba(0,0,0,0);
+        }
+        
+        .center .fileym .sidebar ul li:hover,
+        .center .systemSettingsym .sidebar ul li:hover{
+            color:#E6AD3E;
+            border-left: 3px solid #E6AD3E;
+            
+            /* background-color: rgba(151, 130, 91, 0.1); */
+        }
+
+        .center .fileym .content ul{
+            width: 100%;
+            background-color: rgba(44,49,60,0.8);
+            display: flex;
+            flex-flow: row nowrap;
+            line-height: 40px;
+            box-sizing: border-box;
+            padding: 5px;
+            padding-left: 30px;
+        }
+        .center .fileym .content ul li{
+            justify-content: flex-start;
+            width: 130px;
+            height: 40px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .center .fileym .content ul li:last-of-type{
+            margin-left: 12px;
+        }
+        .center .fileym .content ul li:hover{
+            border:1px solid #E6AD3E;
+            border-radius: 5px;
+            color:#E6AD3E;
+        }
+        .center .fileym .content ul li .iconfont{
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        .center .fileym .content .filebox{
+            width: 100%;
+            box-sizing: border-box;
+            height: 478px;
+            overflow: auto;
+            padding: 0 15px;
+        }
+        .center .systemSettingsym .kaiguan{
+            width: 50px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: #7F848E;
+            position: relative;
+            border:1px solid #2C313C;
+            transition: .5s;
+        }
+        .center .systemSettingsym .kaiguan .gedada{
+            width: 25px;
+            height: 25px;
+            background-color: #E6AD3E;
+            border-radius: 50%;
+            position: absolute;
+            top:-3px;
+            transition: .5s;
+        }
+        .center .xiugaimima{
+            position: fixed;
+            left: 2px;
+            top:2px;
+            right: 2px;
+            bottom: 2px;
+            background-color: rgba(0,0,0,0.4);
+			box-sizing: border-box;
+            z-index: 2;
+            display: none;
+        }
+        .center .xiugaimima .xg-innser{
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            width: 300px;
+            height: 400px;
+            background-color: rgba(255, 255, 255, 0.89);
+            padding: 30px 20px;
+            box-sizing: border-box;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+        .center .xiugaimima .xg-innser p{
+            font-size: 30px;
+            color: #E6AD3E;
+            margin-bottom: 30px;
+        }
+        .center .xiugaimima .xg-innser input{
+            width: 230px;
+            height: 30px;
+            padding: 0 8px;
+            margin-bottom: 30px;
+        }
+            .center .xiugaimima .xg-innser input:hover{
+                border:1px solid #E6AD3E;
+            }
+            .center .xiugaimima .xg-innser input:focus{
+                border:1px solid #E6AD3E;
+                box-shadow: 0 0 5px #E6AD3E;
+            }
+        .center .xiugaimima .xg-innser .xg-btn{
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border:none;
+        }
+        .btn{
+            display: inline-block;
+            border:1px solid #000000;
+            background-color: #E6AD3E;
+            color:#282C34;
+            padding: 6px 15px;
+            border-radius: 5px;
+        }
+
+        .btn:hover{
+            background-color: rgba(230,173,62,0.9);
+            color:#333843;
+        }
+        a{
+            color:#E6AD3E;
+            text-decoration: none;
+            
+        }
+        a:hover{
+            color:#876D39;
+        }
+        #bdyp{
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #000000;
+            position: absolute;
+            right:20px;
+            top:20px;
+        }
+        table{
+            margin-top: 70px;
+			border-collapse:collapse;
+            width: 100%;
+            line-height: 50px;
+		}
+        th,td{
+            text-align: center;
+        }
+        /* .ycname{
+            white-space: nowrap;               
+            overflow: hidden;                       
+            text-overflow: ellipsis;               
+        } */
+    </style>
+</head>
+<body>
+	<div class="mainym">
+        <div class="nav">
+            <div class="logo">
+                酷猫云盘管理系统
+            </div>
+            <div class="liebiao">
+                <div class="liebiao-li" id="zhgl">账户管理</div>
+                <div class="liebiao-li" id="wjgl">文件管理
+                    <!-- <span></span> -->
+                    <ul>
+                        <li>全部文件</li>
+                        <li>图片</li>
+                    </ul>
+                </div>
+                <div class="liebiao-li" id="xtsz">系统设置
+                    <!-- <span></span> -->
+                    <ul>
+                        <li>备份设置</li>
+                        <li>自动上传设置</li>
+                        <li>退出账户</li>
+                        <li>退出</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <div class="xiugaimima">
+                <div class="xg-innser">
+                    <p>设置新密码</p>
+                    输入新密码<br>
+                    <input type="password" id="xg-mima1"><br>
+                    再次输入新密码<br>
+                    <input type="password" id="xg-mima2"><br>
+                    <div class="btn xg-btn" id="xg-ok">确认</div>
+                    <div class="btn xg-btn" id="xg-cancel">取消</div>
+                </div>
+            </div>
+            <!--  账户管理页面  -->
+            <div class="accountym" id="zhglym">
+                <!-- 侧边栏 -->
+                <div class="sidebar">
+                    <p><i class="iconfont">&#xe651;</i>账户管理</p>
+                    <img src="imgs/dongtu.gif" alt="">
+                </div>
+                <div class="content">
+                    <div class="acc-innser1" id="zhglym-1">
+                        <div class="btn" id="bdyp">绑定云盘</div>
+                        <table class="userTable">
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>云盘名称</th>
+                                    <th>登录名</th>
+                                    <th>绑定时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tboby>
+                                <tr>
+                                    <td>百度网盘</td>
+                                    <td class="ycname">139******79</td>
+                                    <td>2020-7-13</td>
+                                    <td> <a href="javaScript:;" class="bangding">解除绑定</a> <a href="javaScript:;" class="xiugai">修改密码</a></td>
+                                </tr>
+                            
+                            </tboby>
+                        </table>
+                    </div>
+                    <div class="acc-innser2" id="zhglym-2">
+                        <table border="1">
+                            <tboby>
+                                <tr>
+                                    <td>公有云盘：</td>
+                                    <td>
+                                        <select id="selectbox">
+                                            <option value ="百度网盘">百度网盘</option>
+                                            <option value ="华为网盘">华为网盘</option>
+                                            <option value="酷盘">酷盘</option>
+                                            <option value="金山快盘">金山快盘</option>
+                                            <option value="新浪微盘">新浪微盘</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>账户：</td>
+                                    <td>
+                                        <input type="text" placeholder="请输入账户" id="userName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>密码：</td>
+                                    <td>
+                                        <input type="password" placeholder="请输入密码" id="userPassword">
+                                    </td>
+                                </tr>
+                            </tboby>
+                        </table>
+                        <div id="baocun" class="btn inn2btn">保存</div>
+                        <div id="quxiao" class="btn inn2btn">取消</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 文件管理页面  -->
+            <div class="fileym" id="wjglym">
+                <div class="sidebar">
+                    <p><i class="iconfont">&#xe627;</i>文件管理</p>
+                    <ul>
+                        <li>全部文件</li>
+                        <li>图片</li>
+                        <li>视频</li>
+                        <li>文档</li>
+                        <li>音乐</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <div class="file-innser">
+                        <ul>
+                            <li><i class="iconfont">&#xe601;</i>上传</li>
+                            <li><i class="iconfont">&#xe61c;</i>下载</li>
+                            <li><i class="iconfont">&#xe61c;</i>离线下载</li>
+                            <li><i class="iconfont">&#xe68b;</i>新建文件夹</li>
+                        </ul>
+                        <div class="filebox">
+                            <table class="userTable">
+                                <caption></caption>
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="allbtn"></th>
+                                        <th>云盘名称</th>
+                                        <th>登录名</th>
+                                        <th>绑定时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tboby>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>百度网盘</td>
+                                        <td class="ycname">181******79</td>
+                                        <td>2020-7-7</td>
+                                        <td> <a href="javaScript:;" class="bangding">解除绑定</a> <a href="javaScript:;" class="xiugai">修改密码</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>百度网盘</td>
+                                        <td class="ycname">167******79</td>
+                                        <td>2020-7-9</td>
+                                        <td> <a href="javaScript:;" class="bangding">解除绑定</a> <a href="javaScript:;" class="xiugai">修改密码</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>百度网盘</td>
+                                        <td class="ycname">183******79</td>
+                                        <td>2020-7-12</td>
+                                        <td> <a href="javaScript:;" class="bangding">解除绑定</a> <a href="javaScript:;" class="xiugai">修改密码</a></td>
+                                    </tr>
+                                </tboby>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- 系统设置页面  -->
+            <div class="systemSettingsym" id="xtszym">
+                <div class="sidebar">
+                    <p><i class="iconfont">&#xe6b9;</i>系统设置</p>
+                    <ul>
+                        <li>备份设置</li>
+                        <li>自动上传</li>
+                        <li>退出账户</li>
+                        <li>退出</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <div class="sys-innser" id="xtsz-1">
+                        <table>
+                            <!--border="1"  -->
+                            <tboby>
+                                <tr>
+                                    <td>百度网盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>釜山云盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>华为网盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>酷盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>新浪微盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>金山快盘</td>
+                                    <td><div class="kaiguan"><div class="gedada"></div></div></td>
+                                </tr>
+                            </tboby>
+                        </table>
+                        <div>客户全选择本地文件夹：该文件夹内容会定期自动山川</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>if (typeof module === 'object') {window.module = module;module = undefined;}</script> 
+    <script src="jquery/jquery-3.1.0.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        (function(){
+            const ipc = require('electron').ipcRenderer
+            ipc.send('add');
+            const user = require("./index");
+            alert(user.user_name);
+        })
+    
+        window.onload = function(){
+            
+            var zhgl_ym = document.getElementById("zhglym");
+            var wjgl_ym = document.getElementById('wjglym');
+            var xtsz_ym = document.getElementById('xtszym');
+            var bdyp = document.getElementById('bdyp');
+            var arr = [zhgl_ym,wjgl_ym,xtsz_ym];
+            var oldym = 0;
+            
+            var lis = document.getElementsByClassName('liebiao-li');
+            
+            for(var i=0; i<lis.length;i++){
+                lis[i].index = i;
+                lis[i].onclick = function(){
+                    var index = this.index;
+                    // for(var i=0; i<lis.length;i++){
+                        // lis[i].classList.remove("lihover");
+                        // lis[i].style.cssText="";
+                        // arr[i].style.cssText="display:none;"
+                    // }
+                    lis[oldym].style.cssText="border-bottom-color:rgba(0,0,0,0);color:#7F848E;";
+                    arr[oldym].style.cssText="display:none;"
+
+                    // this.classList.add("lihover");
+                    this.style.cssText="border-bottom-color:#E6AD3E;color:#E6AD3E;";
+                    arr[index].style.cssText="display:flex;"
+                    
+                    oldym=index;
+                }
+            }
+            var zhglym_1 = document.getElementById('zhglym-1');
+            var zhglym_2 = document.getElementById('zhglym-2');
+            
+            bdyp.onclick = function(){
+                zhglym_1.style.display = "none";
+                zhglym_2.style.display = "block";
+            }
+
+            
+
+            var gedadas = document.getElementsByClassName('gedada');
+            var kaiguan = document.getElementsByClassName('kaiguan');
+            for(var i=0;i<gedadas.length;i++){
+                gedadas[i].index= i;
+                gedadas[i].bool = 0;
+                var gddindex;
+                var gddindex;
+                gedadas[i].onclick = function(){
+                    gddindex = this.index;
+                    gddbool = this.bool;
+                    this.style.left=gddbool?"0":"60%";
+                    if(gddbool){
+                        kaiguan[gddindex].style.backgroundColor="#7F848E";
+                        kaiguan[gddindex].style.boxShadow="";
+                        
+                    }else{
+                        kaiguan[gddindex].style.backgroundColor="#876D39";
+                        kaiguan[gddindex].style.boxShadow="0 0 6px #E6AD3E";
+                    }
+                    this.bool = !gddbool;
+                    // console.log(gddbool);
+                    // console.log(gddindex);
+                }
+            }
+
+            
+        }
+
+        $(function(){
+            var $baocun = $('#baocun')
+
+            var $zhglym_1 = $('#zhglym-1');
+            var $zhglym_2 = $('#zhglym-2');
+
+            var $userName=$('#userName')
+            var $userPassword=$('#userPassword')
+
+            $baocun.click(function(){
+                // 收集数据
+                var $selectbox = $("#selectbox");
+                
+                
+                var selectbox = $selectbox.val()
+                var userName=$userName.val()
+                var userPassword= $userPassword.val()
+
+                var myDate = new Date;
+                var year = myDate.getFullYear(); //获取当前年
+                var mon = myDate.getMonth() + 1; //获取当前月
+                var date = myDate.getDate(); //获取当前日
+                // var h = myDate.getHours();//获取当前小时数(0-23)
+                // var m = myDate.getMinutes();//获取当前分钟数(0-59)
+                // var s = myDate.getSeconds();//获取当前秒
+                // var week = myDate.getDay();
+                // var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                console.log(year, mon, date)
+                // $("#time").html(year + "年" + mon + "月" + date + "日" + weeks[week]);
+
+                if(userName==''||userPassword==''){
+                    alert('输入信息不完整！')
+                }else{
+                    $('<tr></tr>')
+                        .append('<td>'+'<input type="checkbox">'+'</td>')
+                        .append('<td>'+selectbox+'</td>')
+                        .append('<td class="ycname">'+userName+'</td>')
+                        .append('<td>'+(year+'-'+mon+'-'+date)+'</td>')
+                        .append('<td><a href="">删除绑定</a> <a href="">修改密码</a></td>')
+                        .appendTo('.userTable:eq(1)>tbody')
+                        
+                    $('<tr></tr>')
+                        .append('<td>'+selectbox+'</td>')
+                        .append('<td class="ycname">'+userName+'</td>')
+                        .append('<td>'+(year+'-'+mon+'-'+date)+'</td>')
+                        .append('<td><a href="javaScript:;" class="bangding">删除绑定</a> <a href="javaScript:;" class="xiugai">修改密码</a></td>')
+                        .appendTo('.userTable:eq(0)>tbody')
+                    
+                    // 清除输入    
+                    $userName.val('')
+                    $userPassword.val('')
+                        
+                    
+                    $zhglym_2.css("display","none")
+                    $zhglym_1.css("display","block")
+                }
+                
+                
+            })
+
+            var $quxiao = $('#quxiao');
+            $quxiao.click(function(){
+                $zhglym_2.css("display","none")
+                $zhglym_1.css("display","block")
+                $userName.val('')
+                $userPassword.val('')
+            })
+            
+            //删除
+            var $userTable = $('.userTable')
+            $userTable.each(function(index,domEle){
+                $(domEle).on('click','a.bangding',function(){
+                    //this是点击的那个a
+                    var $tr=$(this).parent().parent()
+                    var name=$tr.children('td:eq(1)').html()
+                    if(index){
+                        name = $tr.children('td:eq(2)').html()
+                    }
+                    if(confirm('确定删除'+name+'吗？')){
+                        $tr.remove()
+                    }
+                    return false
+                })
+                $(domEle).on('click','a.xiugai',function(){
+                    //this是点击的那个a
+                    $(xg).css('display','block');
+                    
+                    return false
+                })
+            })
+
+            var $allbtn = $('#allbtn');
+            var $inputs = $('.filebox tbody input');
+            $allbtn.click(function(){
+                $inputs.prop('checked', this.checked)
+            })
+
+            var xg = $('.xiugaimima')[0];
+            var $xg_ok = $('#xg-ok')
+            var $xg_cancel = $('#xg-cancel')
+            $xg_cancel.click(function(){
+                $(xg).css('display','none');
+            })
+            $xg_ok.click(function(){
+                var xg_mima1 = $('#xg-mima1').val();
+                var xg_mima2 = $('#xg-mima2').val();
+                if(xg_mima1==xg_mima2){
+                    alert('修改成功！')
+                    $(xg).css('display','none');
+                    $('#xg-mima1').val('')
+                   
+                }else{
+                    alert('密码不一致！')
+                }
+                $('#xg-mima2').val('')
+               
+                
+            })
+		})
+    </script>
+</body>
+</html>
